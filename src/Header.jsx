@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useOnlineStatus } from "../utils/useOnlineStatus";
+import { UserContext } from "../utils/UserContext";
 
 const Header = () => {
   const [buttonName, setButtonName] = useState("Login");
   const status = useOnlineStatus();
+  const context = useContext(UserContext);
   useEffect(() => {}, []);
 
   // useEffect(()=>{}) called after everytime component is rendered
@@ -33,6 +35,7 @@ const Header = () => {
             <Link to="/small-bundle">Small bundle page</Link>
           </li>
           <li>
+            <h3>{context.user}</h3>
             <button
               className="btn-class"
               onClick={() => {

@@ -1,4 +1,5 @@
 import React from "react";
+import { UserContext } from "../utils/UserContext";
 
 // extends is used because we are inheriting few thing from React
 class User extends React.Component {
@@ -72,6 +73,12 @@ class User extends React.Component {
     console.log("Render called");
     return (
       <>
+        {/* this is how we access the context in class based component */}
+        <UserContext.Consumer>
+          {(context) => {
+            return <h2> admin {context.user}</h2>;
+          }}
+        </UserContext.Consumer>
         <img src={userInfo?.thumbnail} />
         <h1>Name: {userInfo?.brand}</h1>
         <h2>Location: {userInfo?.location}</h2>

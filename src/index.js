@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useState } from "react";
 import ReactDOM from "react-dom/client";
 
 // look at the extension below , all three works it treats all three as JS
@@ -10,6 +10,7 @@ import { About } from "./About.jsx";
 import Contact from "./Contact.js";
 import { ErrorElement } from "./ErrorComponent.jsx";
 import { RestaurantMenu } from "./RestaurantMenu.jsx";
+import { UserContext } from "../utils/UserContext.js";
 
 const SmallBundlePage = lazy(() => import("./SmallBundlePage.jsx"));
 // this is also called
@@ -20,10 +21,16 @@ const SmallBundlePage = lazy(() => import("./SmallBundlePage.jsx"));
 // dynamic import
 
 const AppLayout = () => {
+  const [user, setUser] = useState("Elon musk");
   return (
     <div>
       <Header />
-      <Outlet />
+      {/* same context provider can be nested and given different values
+      and also different context provider can be nested */}
+      <UserContext.Provider value={{ user, setUser }}>
+        <Outlet />
+      </UserContext.Provider>
+
       {/* Outlet is used to show child elements */}
       <Footer />
     </div>
